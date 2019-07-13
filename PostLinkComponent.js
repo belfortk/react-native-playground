@@ -55,16 +55,18 @@ const styles = StyleSheet.create({
     
   },
   postTextContainer: {
-    width: "100%",
-    paddingHorizontal: 5
+    paddingHorizontal: 5,
+    width: 0,
+        flexGrow: 1,
+        flex: 1,
   },
   postTitleContainer:{
     paddingRight: 10
   },
   postTitle: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: '600',
-    color: Colors.black,
+    color: Colors.black
   },
   postMetaData: {
     marginTop: 4,

@@ -18,7 +18,8 @@ import {
   View,
   TextInput,
   StatusBar,
-  Button
+  Button,
+  Keyboard
 } from 'react-native';
 
 import {
@@ -34,28 +35,29 @@ const App = () => {
   }
 
   const fetchSubredditData = () => {
-  axios.get(`https://reddit.com/r/${subredditName.trim() === "" ? "all" : subredditName}.json`)
-  .then((res) => {
-    const {data} = res;
-      const listOfPostDataFromSub = data.data.children.map(post => {
-        const {data} = post;
-        return {
-          title: data.title,
-          username: data.author,
-          comments: {
-            total: data.num_comments,
-            link: `https://www.reddit.com${data.permalink}`
-          },
-          upvotes: data.ups,
-          downvotes: data.downs,
-          thumbnail: data.thumbnail,
-          link: data.url,
-          hours: new Date(data.created_utc * 1000).getHours()
-        };
-      });
-      setData(listOfPostDataFromSub);
-  });
-}
+    Keyboard.dismiss()
+    axios.get(`https://reddit.com/r/${subredditName.trim() === "" ? "all" : subredditName}.json`)
+      .then((res) => {
+        const {data} = res;
+          const listOfPostDataFromSub = data.data.children.map(post => {
+            const {data} = post;
+            return {
+              title: data.title,
+              username: data.author,
+              comments: {
+                total: data.num_comments,
+                link: `https://www.reddit.com${data.permalink}`
+              },
+              upvotes: data.ups,
+              downvotes: data.downs,
+              thumbnail: data.thumbnail,
+              link: data.url,
+              hours: new Date(data.created_utc * 1000).getHours()
+            };
+          });
+          setData(listOfPostDataFromSub);
+        });
+  }
   
   return (
     <Fragment>
@@ -105,7 +107,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
-    color: Colors.black,
+    color: Colors.black
   },
   sectionDescription: {
     marginTop: 8,
